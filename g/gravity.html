@@ -20,8 +20,8 @@
   <script type="text/javascript">
     var canvas, context;
     var particles = [];
-    var dt = 0.002;
-    //var dt = 0.0007;
+    //var dt = 0.002;
+    var dt = 0.0007;
     var G = 0.1;
     var M = 1;
     var m = 1;
@@ -39,7 +39,7 @@
       context = canvas.getContext('2d');
       context.fillStyle = 'black';
       context.fillRect(0, 0, canvas.width, canvas.height);
-      for (var i = 0; i < 200; i++) {
+      for (var i = 0; i < 10; i++) {
         particles.push(particle_random());
       }
       setInterval(world_update, dt * 1000);
@@ -75,9 +75,9 @@
         m: m*Math.random(),
         color: [
           //'rgba(255, 255, 255, 0.9)',
-          //'rgba(255, 0, 0, 0.9)',
+          'rgba(50, 0, 0, 0.9)',
           //'rgba(0, 255, 0, 0.9)',
-          'rgba(0, 200, 255, 0.9)',
+          //'rgba(0, 200, 255, 0.9)',
         ][Math.floor(Math.random() * 1)]
       };
     }
@@ -87,14 +87,23 @@
       var sx = sv.x;
       var sy = sv.y;
       //console.log(`sx: ${sx}, sy: ${sy}`);
-      context.strokeStyle = color;
-      context.lineWidth = 5;
+      
+      context.strokeStyle = 'red';
+      context.lineWidth = 1;
       context.beginPath();
       // particle size
       context.arc(sx, sy, 20, 0, Math.PI * 2, false);
       context.fillStyle = color;
       context.stroke();
-      //context.fill();
+      context.fill();
+      context.closePath();
+
+
+      context.fillStyle = 'rgba(255, 0, 0, 0.3)';
+      context.beginPath();
+      // particle size 2
+      context.arc(sx, sy, 15, 0, Math.PI * 2, false);
+      context.fill();
       context.closePath();
     }
     function particle_render_hole(x, y) {
@@ -113,8 +122,8 @@
       //context.fillStyle = 'black';
       //context.fillRect(0, 0, canvas.width, canvas.height);
       //fade out
-      //context.fillStyle = 'rgba(0, 0, 0, 0.09)';
-      context.fillStyle = 'rgba(0, 0, 0, 0.01)';
+      context.fillStyle = 'rgba(0, 0, 0, 0.001)';
+      //context.fillStyle = 'rgba(0, 0, 0, 0.01)';
       context.fillRect(0, 0, canvas.width, canvas.height);
       for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
